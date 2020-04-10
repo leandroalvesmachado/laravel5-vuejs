@@ -7,7 +7,9 @@
         <!-- :titulos pois estou enviando um array, por padrão entende como string -->
         <tabela-lista
             :titulos="['#', 'Título', 'Descrição']"
-            :itens="[[1, 'PHP', 's'],[2, 'PHP', 's']]"
+            :itens="[[1, 'PHP OO', 'Curso de PHP'],[2, 'Vue JS', 'Curso de Vue']]"
+            ordem="desc"
+            ordem-col="1"
             criar="{{ route('artigos.create') }}"
             editar="#editar"
             detalhe="#detalhe"
