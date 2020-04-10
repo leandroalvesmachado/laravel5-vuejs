@@ -4,7 +4,7 @@
 
 <pagina tamanho="10">
     <painel titulo="Dashboard">
-        Teste de conteúdo...
+        <breadcrumb :lista="{{ $listaMigalhas }}"></breadcrumb>
         <div class="row">
             <div class="col-md-4">
                 <caixa 

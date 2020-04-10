@@ -14,7 +14,21 @@ class ArtigoController extends Controller
      */
     public function index()
     {
-        return view('admin.artigos.index');
+        // js nao usar o array do php, converte pra json
+        $listaMigalhas = [
+            ['titulo' => 'Home', 'url' => route('home')],
+            ['titulo' => 'Lista de Artigos', 'url' => '']
+        ];
+
+        $listaArtigos = [
+            ['id' => 1, 'titulo' => 'PHP OO', 'descricao' => 'Curso de PHP OO'],
+            ['id' => 2, 'titulo' => 'Vue JS', 'descricao' => 'Curso de Vue JS']
+        ];
+
+        return view('admin.artigos.index', [
+            'listaMigalhas' => json_encode($listaMigalhas),
+            'listaArtigos' => json_encode($listaArtigos)
+        ]);
     }
 
     /**
