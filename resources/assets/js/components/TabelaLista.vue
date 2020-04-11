@@ -25,18 +25,21 @@
                         <form :id="index" v-if="deletar && token" :action="deletar">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" :value="token">
-                            <a v-if="detalhe" :href="detalhe">Detalhe |</a>
+                            
+                            <a v-if="detalhe && !modal" :href="detalhe">Detalhe |</a>
+                            <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item"></modal-link>
                             
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
-                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css=""></modal-link>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item"></modal-link>
 
                             <a href="#" @onclick="executaForm(index)">Deletar</a>
                         </form>
                         <span v-if="!token">
-                            <a v-if="detalhe" :href="detalhe">Detalhe |</a>
+                            <a v-if="detalhe && !modal" :href="detalhe">Detalhe |</a>
+                            <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item"></modal-link>
                             
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
-                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css=""></modal-link>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item"></modal-link>
                             
                             <a v-if="deletar" :href="deletar">Deletar</a>
                         </span>
@@ -77,7 +80,7 @@
         computed: {
             lista() {
                 // metodo definido no vuex no store
-                this.$store.commit('setItens',{ opa:"ok" });
+                // this.$store.commit('setItens',{ opa:"ok" });
 
                 let ordem = this.ordemAux;
                 let ordemCol = this.ordemAuxCol;
@@ -110,6 +113,7 @@
 
                 if (this.buscar) {
                     return this.itens.filter(res => {
+                        res = Object.values(res);
                         for (let index = 0; index < res.length; index++) {
                             if ((`${res[index] }`).toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0) {
                                 return true;

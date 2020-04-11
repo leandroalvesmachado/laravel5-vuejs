@@ -22,11 +22,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        itens: {}
+        item: {}
     },
     mutations: {
-        setItens(state, obj) {
-            state.itens = obj;
+        setItem(state, obj) {
+            state.item = obj;
         }
     }
 });
@@ -44,5 +44,9 @@ Vue.component('formulario', require('./components/Formulario.vue'));
 
 const app = new Vue({
     el: '#app',
-    store
+    store,
+    mounted() {
+        // evita o atraso que acontece ao carregar os componentes
+        return document.getElementById('app').style.display = 'block';
+    }
 });
