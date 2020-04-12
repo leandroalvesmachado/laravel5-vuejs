@@ -47,7 +47,7 @@
 
 <script>
     export default {
-        props: ['tipo', 'nome', 'titulo', 'css', 'item'],
+        props: ['tipo', 'nome', 'titulo', 'css', 'item', 'url'],
         computed: {
             defineCss() {
                 if (this.tipo != "link") {
@@ -60,7 +60,14 @@
         },
         methods: {
             preencheFormulario() {
-                return this.$store.commit('setItem', this.item);
+                axios.get(`${this.url}/${this.item.id}`)
+                .then((res) => {
+                    console.log(res.data);
+                    return this.$store.commit('setItem', res.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             }
         }
     }

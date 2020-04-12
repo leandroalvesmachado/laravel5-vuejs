@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Artigo;
 
 class ArtigoController extends Controller
 {
@@ -20,10 +21,7 @@ class ArtigoController extends Controller
             ['titulo' => 'Lista de Artigos', 'url' => '']
         ];
 
-        $listaArtigos = [
-            ['id' => 1, 'titulo' => 'PHP OO', 'descricao' => 'Curso de PHP OO'],
-            ['id' => 2, 'titulo' => 'Vue JS', 'descricao' => 'Curso de Vue JS']
-        ];
+        $listaArtigos = Artigo::select('id', 'titulo', 'descricao', 'data')->get();
 
         return view('admin.artigos.index', [
             'listaMigalhas' => json_encode($listaMigalhas),
@@ -49,7 +47,22 @@ class ArtigoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $validacao = \Validator::make($data, [
+            'titulo' => 'required',
+            'descricao' => 'required',
+            'conteudo' => 'required',
+            'data' => 'required'
+        ]);
+
+        if ($validacao->fails()) {
+            // retorna com as mensagens de erros e campos que foram preenchidos
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+        
+        Artigo::create($data);
+
+        return redirect()->back();
     }
 
     /**
@@ -60,7 +73,7 @@ class ArtigoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Artigo::find($id);
     }
 
     /**

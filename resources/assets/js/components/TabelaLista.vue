@@ -27,7 +27,15 @@
                             <input type="hidden" name="_token" :value="token">
                             
                             <a v-if="detalhe && !modal" :href="detalhe">Detalhe |</a>
-                            <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item"></modal-link>
+                            <modal-link
+                                v-if="detalhe && modal"
+                                tipo="link"
+                                nome="detalhe"
+                                titulo="Detalhe"
+                                css=""
+                                :item="item"
+                                :url="detalhe"
+                            />
                             
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
                             <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item"></modal-link>
@@ -36,7 +44,7 @@
                         </form>
                         <span v-if="!token">
                             <a v-if="detalhe && !modal" :href="detalhe">Detalhe |</a>
-                            <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item"></modal-link>
+                            <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item" :url="detalhe"></modal-link>
                             
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
                             <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item"></modal-link>
@@ -44,7 +52,8 @@
                             <a v-if="deletar" :href="deletar">Deletar</a>
                         </span>
                         <span v-if="token && !deletar">
-                            <a v-if="detalhe" :href="detalhe">Detalhe |</a>
+                            <a v-if="detalhe && !modal" :href="detalhe">Detalhe |</a>
+                            <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item" :url="detalhe"></modal-link>
 
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
                             <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css=""></modal-link>
