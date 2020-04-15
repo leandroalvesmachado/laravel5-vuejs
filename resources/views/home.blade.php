@@ -8,26 +8,27 @@
         <div class="row">
             <div class="col-md-4">
                 <caixa 
-                    qtd="80" 
-                    titulo="Artigos" 
-                    url="{{ route('artigos.index') }}" 
+                    qtd="{{ $totalArtigos }}"
+                    titulo="Artigos"
+                    url="{{ route('artigos.index') }}"
                     cor="orange" 
                     icone="ion ion-pie-graph"
                 />
             </div>
             <div class="col-md-4">
                 <caixa 
-                    qtd="1500" 
+                    qtd="{{ $totalUsuarios }}" 
                     titulo="Usuários"
-                    url="#"
+                    url="{{ route('usuarios.index') }}"
                     cor="blue"
                     icone="ion ion-person-stalker"
                 />
             </div>
             <div class="col-md-4">
                 <caixa
-                    qtd="3" 
+                    qtd="{{ $totalAutores }}"
                     titulo="Autores"
+                    url="{{ route('autores.index') }}"
                     url="#"
                     cor="red"
                     icone="ion ion-person"

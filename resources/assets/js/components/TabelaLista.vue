@@ -22,7 +22,7 @@
                         {{ i }}
                     </td>
                     <td v-if="detalhe || editar || deletar">
-                        <form :id="index" v-if="deletar && token" :action="deletar">
+                        <form :id="index" v-if="deletar && token" :action="deletar + item.id" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" :value="token">
                             
@@ -38,16 +38,16 @@
                             />
                             
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
-                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item"></modal-link>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item" :url="editar"></modal-link>
 
-                            <a href="#" @onclick="executaForm(index)">Deletar</a>
+                            <a href="#" @click="executaForm(index)">Deletar</a>
                         </form>
                         <span v-if="!token">
                             <a v-if="detalhe && !modal" :href="detalhe">Detalhe |</a>
                             <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item" :url="detalhe"></modal-link>
                             
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
-                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item"></modal-link>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item" :url="editar"></modal-link>
                             
                             <a v-if="deletar" :href="deletar">Deletar</a>
                         </span>
@@ -56,7 +56,7 @@
                             <modal-link v-if="detalhe && modal" tipo="link" nome="detalhe" titulo="Detalhe" css="" :item="item" :url="detalhe"></modal-link>
 
                             <a v-if="editar && !modal" :href="editar">Editar |</a>
-                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css=""></modal-link>
+                            <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar" css="" :item="item" :url="editar"></modal-link>
                         </span>
                     </td>
                 </tr>
@@ -90,6 +90,7 @@
             lista() {
                 // metodo definido no vuex no store
                 // this.$store.commit('setItens',{ opa:"ok" });
+                let lista = this.itens.data;
 
                 let ordem = this.ordemAux;
                 let ordemCol = this.ordemAuxCol;
@@ -100,7 +101,7 @@
 
                 if (ordem == 'asc') {
                     // metodo de ordenacao
-                    this.itens.sort((a, b) => {
+                    lista.sort((a, b) => {
                         // ordenacao pela primira coluna
                         if (Object.values(a)[ordemCol] == Object.values(b)[ordemCol]) {
                             return 0;
@@ -110,7 +111,7 @@
                     });
                 } else {
                     // metodo de ordenacao
-                    this.itens.sort((a, b) => {
+                    lista.sort((a, b) => {
                         // ordenacao pela primira coluna
                         if (Object.values(a)[ordemCol] == Object.values(b)[ordemCol]) {
                             return 0;
@@ -121,7 +122,7 @@
                 }
 
                 if (this.buscar) {
-                    return this.itens.filter(res => {
+                    return lista.filter(res => {
                         res = Object.values(res);
                         for (let index = 0; index < res.length; index++) {
                             if ((`${res[index] }`).toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0) {
@@ -133,12 +134,13 @@
                     });
                 }
 
-                return this.itens;
+                return lista;
             }
         },
         methods: {
             executaForm(index) {
-                document.getElementById(index).submit();
+                console.log(index);
+                return document.getElementById(index).submit();
             },
             ordenaColuna(coluna) {
                 this.ordemAuxCol = coluna;

@@ -46716,6 +46716,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             // metodo definido no vuex no store
             // this.$store.commit('setItens',{ opa:"ok" });
+            var lista = this.itens.data;
 
             var ordem = this.ordemAux;
             var ordemCol = this.ordemAuxCol;
@@ -46726,7 +46727,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (ordem == 'asc') {
                 // metodo de ordenacao
-                this.itens.sort(function (a, b) {
+                lista.sort(function (a, b) {
                     // ordenacao pela primira coluna
                     if (Object.values(a)[ordemCol] == Object.values(b)[ordemCol]) {
                         return 0;
@@ -46736,7 +46737,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             } else {
                 // metodo de ordenacao
-                this.itens.sort(function (a, b) {
+                lista.sort(function (a, b) {
                     // ordenacao pela primira coluna
                     if (Object.values(a)[ordemCol] == Object.values(b)[ordemCol]) {
                         return 0;
@@ -46747,7 +46748,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             if (this.buscar) {
-                return this.itens.filter(function (res) {
+                return lista.filter(function (res) {
                     res = Object.values(res);
                     for (var index = 0; index < res.length; index++) {
                         if (('' + res[index]).toLowerCase().indexOf(_this.buscar.toLowerCase()) >= 0) {
@@ -46759,12 +46760,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
 
-            return this.itens;
+            return lista;
         }
     },
     methods: {
         executaForm: function executaForm(index) {
-            document.getElementById(index).submit();
+            console.log(index);
+            return document.getElementById(index).submit();
         },
         ordenaColuna: function ordenaColuna(coluna) {
             this.ordemAuxCol = coluna;
@@ -46888,7 +46890,13 @@ var render = function() {
                     _vm.deletar && _vm.token
                       ? _c(
                           "form",
-                          { attrs: { id: index, action: _vm.deletar } },
+                          {
+                            attrs: {
+                              id: index,
+                              action: _vm.deletar + item.id,
+                              method: "post"
+                            }
+                          },
                           [
                             _c("input", {
                               attrs: {
@@ -46935,7 +46943,8 @@ var render = function() {
                                     nome: "editar",
                                     titulo: "Editar",
                                     css: "",
-                                    item: item
+                                    item: item,
+                                    url: _vm.editar
                                   }
                                 })
                               : _vm._e(),
@@ -46945,7 +46954,7 @@ var render = function() {
                               {
                                 attrs: { href: "#" },
                                 on: {
-                                  onclick: function($event) {
+                                  click: function($event) {
                                     return _vm.executaForm(index)
                                   }
                                 }
@@ -46993,7 +47002,8 @@ var render = function() {
                                     nome: "editar",
                                     titulo: "Editar",
                                     css: "",
-                                    item: item
+                                    item: item,
+                                    url: _vm.editar
                                   }
                                 })
                               : _vm._e(),
@@ -47043,7 +47053,9 @@ var render = function() {
                                     tipo: "link",
                                     nome: "editar",
                                     titulo: "Editar",
-                                    css: ""
+                                    css: "",
+                                    item: item,
+                                    url: _vm.editar
                                   }
                                 })
                               : _vm._e()

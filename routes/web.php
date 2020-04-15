@@ -33,4 +33,6 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->group(function()
     // PUT/PATCH	/photos/{photo}	        update	photos.update
     // DELETE	    /photos/{photo}	        destroy	photos.destroy
     Route::resource('artigos', 'ArtigoController');
+    Route::resource('usuarios', 'UsuarioController');
+    Route::resource('autores', 'AutorController');
 });

@@ -16,16 +16,20 @@
         <!-- :titulos pois estou enviando um array, por padrão entende como string -->
         <tabela-lista
             :titulos="['#', 'Título', 'Descrição', 'Data']"
-            :itens="{{ $listaArtigos }}"
+            :itens="{{ json_encode($listaArtigos) }}"
             ordem="desc"
             ordem-col="1"
             criar="{{ route('artigos.create') }}"
-            editar="#editar"
+            editar="/admin/artigos"
             detalhe="/admin/artigos"
-            deletar="#deletar"
-            token="1234"
+            deletar="/admin/artigos/"
+            token="{{ csrf_token() }}"
             modal="sim"
-        />
+        ></tabela-lista>
+        <div align="center">
+            {{ $listaArtigos->links() }}
+        </div>
+        
     </painel>
 </pagina>
 
@@ -56,7 +60,8 @@
 </modal>
 
 <modal nome="editar" titulo="Editar">
-    <formulario id="formEditar" css="" action="#" method="put" enctype="multipart/form-data" token="">
+    <formulario id="formEditar" css="" :action="'/admin/artigos/' + $store.state.item.id" method="post" enctype="" token="{{ csrf_token() }}">
+        {{ method_field('PUT') }}
         <div class="form-group">
             <label for="titulo">Título</label>
             <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Título" v-model="$store.state.item.titulo">
@@ -64,6 +69,14 @@
         <div class="form-group">
             <label for="descricao">Descrição</label>
             <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Descrição" v-model="$store.state.item.descricao">
+        </div>
+        <div class="form-group">
+            <label for="descricao">Conteúdo</label>
+            <textarea class="form-control" name="conteudo" id="conteudo" v-model="$store.state.item.conteudo"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="descricao">Data</label>
+            <input type="datetime-local" class="form-control" name="data" id="data" v-model="$store.state.item.data">
         </div>
     </formulario>
     <!-- slot definido no elemento -->
@@ -81,7 +94,7 @@
 
 <modal nome="deletar">
     <painel titulo="Deletar">
-        <formulario css="" action="#" method="post" enctype="" token="">
+        <formulario css="" action="#" method="get" enctype="" token="">
             <div class="form-group">
                 <label for="titulo">Título</label>
                 <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Título">
