@@ -11,7 +11,7 @@
         @endforeach
         </div>
     @endif
-    <painel titulo="Lista de Usuários">
+    <painel titulo="Lista de Adms">
         <breadcrumb :lista="{{ $listaMigalhas }}"></breadcrumb>
         <!-- :titulos pois estou enviando um array, por padrão entende como string -->
         <tabela-lista
@@ -19,11 +19,9 @@
             :itens="{{ json_encode($listaModelo) }}"
             ordem="desc"
             ordem-col="1"
-            criar="{{ route('usuarios.create') }}"
-            editar="/admin/usuarios"
-            detalhe="/admin/usuarios"
-            deletar="/admin/usuarios/"
-            token="{{ csrf_token() }}"
+            criar="{{ route('autores.create') }}"
+            editar="/admin/adms"
+            detalhe="/admin/adms"
             modal="sim"
         ></tabela-lista>
         <div align="center">
@@ -34,7 +32,7 @@
 </pagina>
 
 <modal nome="adicionar" titulo="Adicionar">
-    <formulario id="formAdicionar" css="" action="{{ route('usuarios.store') }}" method="post" enctype="" token="{{ csrf_token() }}">
+    <formulario id="formAdicionar" css="" action="{{ route('adms.store') }}" method="post" enctype="" token="{{ csrf_token() }}">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="{{ old('name') }}">
@@ -42,14 +40,6 @@
         <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="E-mail" value="{{ old('email') }}">
-        </div>
-        <div class="form-group">
-            <label for="autor">Autor</label>
-            <select class="form-control" name="autor" id="autor">
-                <option value="">Escolha a opção</option>
-                <option value="S" {{ (old('autor') && old('autor')) == 'S' ? 'selected' : '' }}>Sim</option>
-                <option value="N" {{ (old('autor') && old('autor')) == 'N' ? 'selected' : '' }}>Não</option>
-            </select>
         </div>
         <div class="form-group">
             <label for="autor">Admin</label>
@@ -72,7 +62,7 @@
 </modal>
 
 <modal nome="editar" titulo="Editar">
-    <formulario id="formEditar" css="" :action="'/admin/usuarios/' + $store.state.item.id" method="post" enctype="" token="{{ csrf_token() }}">
+    <formulario id="formEditar" css="" :action="'/admin/adms/' + $store.state.item.id" method="post" enctype="" token="{{ csrf_token() }}">
         {{ method_field('PUT') }}
         <div class="form-group">
             <label for="name">Nome</label>
@@ -81,14 +71,6 @@
         <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="E-mail" v-model="$store.state.item.email">
-        </div>
-        <div class="form-group">
-            <label for="autor">Autor</label>
-            <select class="form-control" name="autor" id="autor" v-model="$store.state.item.autor">
-                <option value="">Escolha a opção</option>
-                <option value="S">Sim</option>
-                <option value="N">Não</option>
-            </select>
         </div>
         <div class="form-group">
             <label for="autor">Admin</label>

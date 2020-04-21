@@ -6,6 +6,7 @@
     <painel titulo="Dashboard">
         <breadcrumb :lista="{{ $listaMigalhas }}"></breadcrumb>
         <div class="row">
+            @can('isAutor')
             <div class="col-md-4">
                 <caixa 
                     qtd="{{ $totalArtigos }}"
@@ -15,6 +16,8 @@
                     icone="ion ion-pie-graph"
                 />
             </div>
+            @endcan
+            @can('isAdmin')
             <div class="col-md-4">
                 <caixa 
                     qtd="{{ $totalUsuarios }}" 
@@ -34,6 +37,17 @@
                     icone="ion ion-person"
                 />
             </div>
+            <div class="col-md-4">
+                <caixa
+                    qtd="{{ $totalAdms }}"
+                    titulo="Adms"
+                    url="{{ route('adms.index') }}"
+                    url="#"
+                    cor="green"
+                    icone="ion ion-person"
+                />
+            </div>
+            @endcan
         </div>
     </painel>
 </pagina>

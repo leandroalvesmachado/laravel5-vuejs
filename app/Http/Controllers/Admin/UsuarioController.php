@@ -18,7 +18,7 @@ class UsuarioController extends Controller
     {
         // js nao usar o array do php, converte pra json
         $listaMigalhas = [
-            ['titulo' => 'Home', 'url' => route('home')],
+            ['titulo' => 'Admin', 'url' => route('admin')],
             ['titulo' => 'Lista de Usuários', 'url' => '']
         ];
 

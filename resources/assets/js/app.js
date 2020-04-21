@@ -12,6 +12,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+import ckeditor from 'vue-ckeditor2';
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -40,6 +42,8 @@ Vue.component('breadcrumb', require('./components/Breadcrumb.vue'));
 Vue.component('modal', require('./components/modal/Modal.vue'));
 Vue.component('modal-link', require('./components/modal/ModalLink.vue'));
 Vue.component('formulario', require('./components/Formulario.vue'));
+Vue.component('artigo-card', require('./components/ArtigoCard.vue'));
+Vue.component('ckeditor', ckeditor);
 
 
 const app = new Vue({

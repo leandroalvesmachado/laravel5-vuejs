@@ -19,7 +19,7 @@
             <tbody>
                 <tr v-for="(item, index) in lista" :key="index">
                     <td v-for="i in item" :key="i">
-                        {{ i }}
+                        {{ i | formataData }}
                     </td>
                     <td v-if="detalhe || editar || deletar">
                         <form :id="index" v-if="deletar && token" :action="deletar + item.id" method="post">
@@ -84,6 +84,20 @@
                 buscar: '',
                 ordemAux: this.ordem || 'asc',
                 ordemAuxCol: this.ordemCol || 0
+            }
+        },
+        filters: {
+            formataData(value) {
+                if (!value) return '';
+                value = value.toString();
+
+                if (value.split('-').length == 3) {
+                    value = value.split('-');
+                    
+                    return value[2] + '/' + value[1] + '/' + value[0];
+                }
+
+                return value;
             }
         },
         computed: {

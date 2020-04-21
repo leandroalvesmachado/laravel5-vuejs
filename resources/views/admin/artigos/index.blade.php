@@ -15,10 +15,10 @@
         <breadcrumb :lista="{{ $listaMigalhas }}"></breadcrumb>
         <!-- :titulos pois estou enviando um array, por padrão entende como string -->
         <tabela-lista
-            :titulos="['#', 'Título', 'Descrição', 'Data']"
+            :titulos="['#', 'Título', 'Descrição', 'Data', 'Autor']"
             :itens="{{ json_encode($listaArtigos) }}"
             ordem="desc"
-            ordem-col="1"
+            ordem-col="0"
             criar="{{ route('artigos.create') }}"
             editar="/admin/artigos"
             detalhe="/admin/artigos"
@@ -44,12 +44,23 @@
             <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Descrição" value="{{ old('descricao') }}">
         </div>
         <div class="form-group">
-            <label for="descricao">Conteúdo</label>
-            <textarea class="form-control" name="conteudo" id="conteudo">{{ old('titulo') }}</textarea>
+            <label for="aadConteudo">Conteúdo</label>
+            <ckeditor
+                id="aadConteudo"
+                name="conteudo"
+                value="{{ old('conteudo') }}"
+                :config="{
+                    toolbar: [
+                        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
+                    ],
+                    heigth: 300
+                }"
+            >
+            </ckeditor>
         </div>
         <div class="form-group">
-            <label for="descricao">Data</label>
-            <input type="datetime-local" class="form-control" name="data" id="data" value="{{ old('data') }}">
+            <label for="data">Data</label>
+            <input type="date" class="form-control" name="data" id="data" value="{{ old('data') }}">
         </div>
     </formulario>
     <!-- slot definido no elemento -->
@@ -71,12 +82,23 @@
             <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Descrição" v-model="$store.state.item.descricao">
         </div>
         <div class="form-group">
-            <label for="descricao">Conteúdo</label>
-            <textarea class="form-control" name="conteudo" id="conteudo" v-model="$store.state.item.conteudo"></textarea>
+            <label for="editConteudo">Conteúdo</label>
+            <ckeditor
+                id="editConteudo"
+                name="conteudo"
+                v-model="$store.state.item.conteudo"
+                :config="{
+                    toolbar: [
+                        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
+                    ],
+                    heigth: 300
+                }"
+            >
+            </ckeditor>
         </div>
         <div class="form-group">
-            <label for="descricao">Data</label>
-            <input type="datetime-local" class="form-control" name="data" id="data" v-model="$store.state.item.data">
+            <label for="data">Data</label>
+            <input type="date" class="form-control" name="data" id="data" v-model="$store.state.item.data">
         </div>
     </formulario>
     <!-- slot definido no elemento -->
